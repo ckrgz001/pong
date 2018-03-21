@@ -5,7 +5,7 @@ var animate = window.requestAnimationFrame ||
 
 var canvas = document.getElementById('pong');
 var width = 800;
-var height = 600;
+var height = 500;
 var context = canvas.getContext('2d');
 
 
@@ -23,6 +23,7 @@ var render = function() {
   context.fillRect(0, 0, width, height);
   player.render();
   computer.render();
+  ball.render();
 };
 
 function Paddle(x, y, width, height) {
@@ -40,11 +41,11 @@ function Paddle(x, y, width, height) {
   };
 
   function Player() {
-    this.paddle = new Paddle(175, 580, 50, 10);
+    this.paddle = new Paddle(770, 175, 15, 100);
  }
  
  function Computer() {
-   this.paddle = new Paddle(175, 10, 50, 10);
+   this.paddle = new Paddle(20, 175, 15, 100);
  }
 
  Player.prototype.render = function() {
@@ -55,8 +56,24 @@ function Paddle(x, y, width, height) {
     this.paddle.render();
   };
 
+  function Ball(x, y) {
+    this.x = x;
+    this.y = y;
+    this.x_speed = 0;
+    this.y_speed = 3;
+    this.radius = 10;
+  }
+  
+  Ball.prototype.render = function() {
+    context.beginPath();
+    context.arc(this.x, this.y, this.radius, 2 * Math.PI, false);
+    context.fillStyle = "#fff";
+    context.fill();
+  };
+
 var player = new Player();
 var computer = new Computer();
+var ball = new Ball(400, 250);
 
 
 
