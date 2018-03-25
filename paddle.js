@@ -16,8 +16,35 @@ var step = function() {
     animate(step);
   };
 
-var update = function() {
-};
+  var update = function() {
+    player.update();
+  };
+  
+  Player.prototype.update = function() {
+    for(var key in keysDown) {
+      var value = Number(key);
+      if(value == 38) { // up arrow
+        this.paddle.move(0, -this.paddle.speed);
+      } else if (value == 40) { // down arrow
+        this.paddle.move(0, this.paddle.speed);
+      } else {
+        this.paddle.move(0, 0);
+      }
+    }
+  };
+  
+  Paddle.prototype.move = function(x, y) {
+    this.x += x;
+    this.y += y;
+    this.x_speed = x;
+    this.y_speed = y;
+    if(this.y < 0) { // all the way up
+      this.y = 0;
+    } else if (this.y + this.height > 800 ) { // all the way down
+      this.y = 800 - this.height;
+    }
+  }
+  
 
 var render = function() {
   context.fillStyle = "#000";
@@ -40,47 +67,9 @@ Paddle.prototype.render = function() {
   context.fillRect(this.x, this.y, this.width, this.height);
 };
 
-Paddle.prototype.move = function(x, y) {
-  this.x += x;
-  this.y += y;
-  if(this.y < 30) {
-    this.y = 30;
-  } else if (this.y + this.height > 495) {
-    this.y = 495 - this.height;
-  }
-};
-  
 
-Player.prototype.update = function() {
-  for(var key in keysDown) {
-    var value = Number(key);
-    if(value == 38) {
-      this.paddle.move(0, -this.paddle.speed);
-    } else if (value == 40) {
-      this.paddle.move(0, this.paddle.speed);
-    } else {
-      this.paddle.move(0, 0);
-    }
-  }
-};
 
-Computer.prototype.update = function() {
-  if (playerTwo == true) {
-    for(var key in keysDown) {
-      var value = Number(key);
-      if(value == 65) {
-        this.paddle.move(0, -this.paddle.speed);
-      } else if (value == 90) {
-        this.paddle.move(0, this.paddle.speed);
-      } else {
-        this.paddle.move(0, 0);
-      }
-    }
-  } else {
-    (this.paddle.y + this.paddle.height/2) > ball.y ? this.paddle.move(0, -this.paddle.speed) : this.paddle.move(0,0);
-    (this.paddle.y + this.paddle.height/2) < ball.y ? this.paddle.move(0, this.paddle.speed) : this.paddle.move(0,0);
-  }
-};
+
 
 function Player() {
   this.paddle = new Paddle(770, 175, 15, 100);
