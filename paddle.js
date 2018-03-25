@@ -42,10 +42,10 @@ Paddle.prototype.move = function(x, y) {
   this.y += y;
   this.x_speed = x;
   this.y_speed = y;
-  if(this.y < 0) { // all the way up
-    this.y = 0;
-  } else if (this.y + this.height > 800 ) { // all the way down
-    this.y = 800 - this.height;
+  if(this.y < 5) { // all the way up
+    this.y = 5;
+  } else if (this.y + this.height > 595 ) { // all the way down
+    this.y = 595 - this.height;
   }
 }
   
@@ -111,8 +111,8 @@ Ball.prototype.update = function(paddle1, paddle2) {
   this.bottom = this.y - 5;
 
 
-  if(this.top < 10) {
-    this.y = 10;
+  if(this.top < 30) {
+    this.y = 30;
     this.y_speed = -this.y_speed;
   } else if(this.bottom > 590) {
     this.y = 585;
