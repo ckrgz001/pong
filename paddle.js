@@ -5,7 +5,7 @@ var animate = window.requestAnimationFrame ||
 
 var canvas = document.getElementById('pong');
 var width = 800;
-var height = 500;
+var height = 600;
 var context = canvas.getContext('2d');
 var keysDown = {};
 var player = new Player();
