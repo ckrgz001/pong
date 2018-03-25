@@ -119,7 +119,9 @@ Ball.prototype.update = function(paddle1, paddle2) {
     this.ySpeed = -this.ySpeed;
   }
 
+  
   if(this.right > (paddle1.x - paddle1.width) && this.right < (paddle1.x + paddle1.width) && (this.top < (paddle1.y + paddle1.height) && this.bottom > (paddle1.y - paddle1.height/2))) {
+    console.log("Collision on the right!");
     this.xSpeed = -this.xSpeed;
     this.y > (paddle1.y + paddle1.height/2) ? this.ySpeed += (paddle1.speed / 2) : this.ySpeed -= (paddle1.speed / 2);
     
