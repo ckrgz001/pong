@@ -111,26 +111,23 @@ Ball.prototype.update = function(paddle1, paddle2) {
   this.bottom = this.y - 5;
 
 
-  if(this.top < 30) {
-    this.y = 30;
-    this.ySpeed = -this.ySpeed;
+  if(this.top < 10) {
+    this.y = 10;
+    this.y_speed = -this.y_speed;
   } else if(this.bottom > 590) {
     this.y = 585;
-    this.ySpeed = -this.ySpeed;
+    this.y_speed = -this.y_speed;
   }
 
   
   if(this.right > (paddle1.x - paddle1.width) && this.right < (paddle1.x + paddle1.width) && (this.top < (paddle1.y + paddle1.height) && this.bottom > (paddle1.y - paddle1.height/2))) {
-    console.log("Collision on the right!");
-    this.xSpeed = -this.xSpeed;
-    this.y > (paddle1.y + paddle1.height/2) ? this.ySpeed += (paddle1.speed / 2) : this.ySpeed -= (paddle1.speed / 2);
-    
-  }
+    console.log("x_speed was " + this.x_speed);
+    this.x_speed = -this.x_speed;
+    console.log("x_speed is " + this.x_speed);
 
-  if(this.left > (paddle2.x - paddle2.width) && this.left < (paddle2.x + paddle2.width) && (this.top < (paddle2.y + paddle2.height) && this.bottom > (paddle2.y - paddle2.height/2))) {
-    this.xSpeed = -this.xSpeed;
-    this.y > (paddle2.y + paddle2.height/2) ? this.ySpeed += (paddle2.speed / 2) : this.ySpeed -= (paddle2.speed / 2);
-    
+    console.log("y_speed was " + this.y_speed);
+    this.y > (paddle1.y + paddle1.height/2) ? this.y_speed += (paddle1.speed / 2) : this.y_speed -= (paddle1.speed / 2);
+    console.log("y_speed is " + this.y_speed);
   }
 
 
