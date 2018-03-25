@@ -16,9 +16,10 @@ var step = function() {
     animate(step);
   };
 
-  var update = function() {
-    player.update();
-  };
+var update = function() {
+  player.update();
+  computer.update();
+};
   
   Player.prototype.update = function() {
     for(var key in keysDown) {
