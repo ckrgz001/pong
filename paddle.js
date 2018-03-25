@@ -8,6 +8,9 @@ var width = 800;
 var height = 500;
 var context = canvas.getContext('2d');
 var keysDown = {};
+var player = new Player();
+var computer = new Computer();
+var ball = new Ball(400, 250);
 
 
 var step = function() {
@@ -18,33 +21,33 @@ var step = function() {
 
 var update = function() {
   player.update();
-  computer.update();
+  ball.update();
 };
   
-  Player.prototype.update = function() {
-    for(var key in keysDown) {
-      var value = Number(key);
-      if(value == 38) { // up arrow
-        this.paddle.move(0, -this.paddle.speed);
-      } else if (value == 40) { // down arrow
-        this.paddle.move(0, this.paddle.speed);
-      } else {
-        this.paddle.move(0, 0);
-      }
-    }
-  };
-  
-  Paddle.prototype.move = function(x, y) {
-    this.x += x;
-    this.y += y;
-    this.x_speed = x;
-    this.y_speed = y;
-    if(this.y < 0) { // all the way up
-      this.y = 0;
-    } else if (this.y + this.height > 800 ) { // all the way down
-      this.y = 800 - this.height;
+Player.prototype.update = function() {
+  for(var key in keysDown) {
+    var value = Number(key);
+    if(value == 38) { // up arrow
+      this.paddle.move(0, -this.paddle.speed);
+    } else if (value == 40) { // down arrow
+      this.paddle.move(0, this.paddle.speed);
+    } else {
+      this.paddle.move(0, 0);
     }
   }
+};
+  
+Paddle.prototype.move = function(x, y) {
+  this.x += x;
+  this.y += y;
+  this.x_speed = x;
+  this.y_speed = y;
+  if(this.y < 0) { // all the way up
+    this.y = 0;
+  } else if (this.y + this.height > 800 ) { // all the way down
+    this.y = 800 - this.height;
+  }
+}
   
 
 var render = function() {
@@ -68,10 +71,6 @@ Paddle.prototype.render = function() {
   context.fillRect(this.x, this.y, this.width, this.height);
 };
 
-
-
-
-
 function Player() {
   this.paddle = new Paddle(770, 175, 15, 100);
 }
@@ -91,7 +90,7 @@ Computer.prototype.render = function() {
 function Ball(x, y) {
   this.x = x;
   this.y = y;
-  this.x_speed = 0;
+  this.x_speed = 3;
   this.y_speed = 0;
   this.radius = 10;
 }
@@ -103,11 +102,10 @@ Ball.prototype.render = function() {
   context.fill();
 };
 
-var player = new Player();
-var computer = new Computer();
-var ball = new Ball(400, 250);
-
-
+Ball.prototype.update = function() {
+  this.x += this.x_speed;
+  this.y += this.y_speed;
+};
 
 
 window.onload = function() {
