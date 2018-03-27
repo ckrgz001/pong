@@ -11,6 +11,8 @@ var keysDown = {};
 var player = new Player();
 var computer = new Computer();
 var ball = new Ball(400, 250);
+var score1 = 0;
+var score2 = 0;
 
 
 var step = function() {
@@ -146,7 +148,16 @@ Ball.prototype.update = function(paddle1, paddle2) {
     this.x_speed = -this.x_speed;
     this.y > (paddle2.y + paddle2.height/2) ? this.y_speed += (paddle2.speed / 2) : this.y_speed -= (paddle2.speed / 2);
   }
-
+   
+ 
+  if(this.x < 5 || this.x > 795) {
+    this.x < 5 ? score1 ++ : score2 ++;
+    document.getElementById("player1Score").innerHTML = score1;
+    document.getElementById("player2Score").innerHTML = score2;
+    this.x = 400;
+    this.y = 300;
+    this.xSpeed = 3;
+}
 
 };
 
