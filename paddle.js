@@ -26,7 +26,8 @@ var update = function() {
   computer.update(ball);
   ball.update(player.paddle, computer.paddle);
 };
-  
+
+
 Player.prototype.update = function() {
   for(var key in keysDown) {
     var value = Number(key);
@@ -114,6 +115,12 @@ function Ball(x, y) {
   this.radius = 10;
 }
 
+function reset(){
+  this.x_speed = -this.x_speed;
+  this.x = canvas.width/2;
+  this.y = canvas.height/2;
+ };
+
 Ball.prototype.render = function() {
   context.beginPath();
   context.arc(this.x, this.y, this.radius, 2 * Math.PI, false);
@@ -142,25 +149,24 @@ Ball.prototype.update = function(paddle1, paddle2) {
   if(this.right > (paddle1.x - paddle1.width) && this.right < (paddle1.x + paddle1.width) && (this.top < (paddle1.y + paddle1.height) && this.bottom > (paddle1.y - paddle1.height/2))) {
     this.x_speed = -this.x_speed;
     this.y > (paddle1.y + paddle1.height/2) ? this.y_speed += (paddle1.speed / 2) : this.y_speed -= (paddle1.speed / 2);
-  }
+  } 
 
   if(this.left > (paddle2.x - paddle2.width) && this.left < (paddle2.x + paddle2.width) && (this.top < (paddle2.y + paddle2.height) && this.bottom > (paddle2.y - paddle2.height/2))) {
     this.x_speed = -this.x_speed;
     this.y > (paddle2.y + paddle2.height/2) ? this.y_speed += (paddle2.speed / 2) : this.y_speed -= (paddle2.speed / 2);
-  }
-   
- 
+  } 
+
   if(this.x < 5 || this.x > 795) {
     this.x < 5 ? score1 ++ : score2 ++;
     document.getElementById("player1Score").innerHTML = score1;
     document.getElementById("player2Score").innerHTML = score2;
     this.x = 400;
     this.y = 300;
-    this.xSpeed = 3;
+    this.xSpeed = 1;
+    this.ySpeed = 1;
 }
-
+    
 };
-
 
 window.onload = function() {
     animate(step);
